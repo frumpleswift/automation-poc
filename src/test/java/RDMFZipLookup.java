@@ -13,18 +13,29 @@ public class RDMFZipLookup {
 
   private WebDriver driver;
   private Actions action;
+  private Actions pause;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
+  private void pause() {
+  
+    
+    pause.pause(1000);
+    pause.perform();
+  
+  }
+  
   @BeforeClass(alwaysRun = true)
   public void setUp() throws Exception {
 
     driver = new FirefoxDriver();
     action = new Actions(driver);
+    pause  = new Actions(driver);
     baseUrl = "https://rdmfhrentals.sc.egov.usda.gov";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
+  
 
   @Test
   public void testRDMFZipLookup() throws Exception {
@@ -35,9 +46,12 @@ public class RDMFZipLookup {
     action.click(anchor);
     action.perform();
     driver.findElement(By.id("zz")).sendKeys("856");
+    pause();
     // ERROR: Caught exception [ERROR: Unsupported command [addLocationStrategy | id=zz |  856]]
     driver.findElement(By.cssSelector("input[type=\"button\"]")).click();
+    pause();
     driver.findElement(By.linkText("Del Coronado")).click();
+    pause();
     driver.findElement(By.linkText("View Income Limits")).click();
   }
   
@@ -54,9 +68,13 @@ public class RDMFZipLookup {
     action.perform();
     driver.findElement(By.id("M1")).clear();
     driver.findElement(By.id("M1")).sendKeys("Bosley");
+    pause();
     driver.findElement(By.cssSelector("input[type=\"button\"]")).click();
+    pause();
     driver.findElement(By.linkText("Las Vegas Apts")).click();
+    pause();
     driver.findElement(By.linkText("View Income Limits")).click();
+    pause();
   }
   
     @Test
@@ -70,9 +88,13 @@ public class RDMFZipLookup {
     action.perform();
     driver.findElement(By.id("P1")).clear();
     driver.findElement(By.id("P1")).sendKeys("Orac");
+    pause();
     driver.findElement(By.cssSelector("input[type=\"button\"]")).click();
+    pause();
     driver.findElement(By.linkText("Oracle Apartments")).click();
+    pause();
     driver.findElement(By.linkText("View Income Limits")).click();
+    pause();
   }
   
     @Test
@@ -87,9 +109,13 @@ public class RDMFZipLookup {
     new Select(driver.findElement(By.id("stl"))).selectByVisibleText("Arizona");
     driver.findElement(By.id("tn")).clear();
     driver.findElement(By.id("tn")).sendKeys("Orac");
+    pause();
     driver.findElement(By.cssSelector("input[type=\"button\"]")).click();
+    pause();
     driver.findElement(By.linkText("Oracle Apartments")).click();
+    pause();
     driver.findElement(By.linkText("View Income Limits")).click();
+    pause();
   }
 
 
