@@ -10,6 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class RDMFZipLookup {
+
   private WebDriver driver;
   private Actions action;
   private String baseUrl;
@@ -18,26 +19,12 @@ public class RDMFZipLookup {
 
   @BeforeClass(alwaysRun = true)
   public void setUp() throws Exception {
+
     driver = new FirefoxDriver();
     action = new Actions(driver);
     baseUrl = "https://rdmfhrentals.sc.egov.usda.gov";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
-  
-  public WebElement clickLinkByHref(String href) {
-        WebElement ret = null;
-        List<WebElement> anchors = driver.findElements(By.tagName("a"));
-        Iterator<WebElement> i = anchors.iterator();
-        while(i.hasNext()) {
-            WebElement anchor = i.next();
-            if(anchor.getAttribute("href").contains(href)) {
-	         ret =anchor;
-                //anchor.click();
-                break;
-            }
-        }
-        return ret;
-    }
 
   @Test
   public void testRDMFZipLookup() throws Exception {
@@ -53,6 +40,58 @@ public class RDMFZipLookup {
     driver.findElement(By.linkText("Del Coronado")).click();
     driver.findElement(By.linkText("View Income Limits")).click();
   }
+  
+    @Test
+  public void testRDMFMgmtLookup() throws Exception {
+    driver.get(baseUrl + "/RDMFHRentals/select_state.jsp");
+    //driver.findElement(By.id("img7")).click();
+    WebElement anchor = driver.findElement(By.id("img7"));
+    action.moveToElement(anchor);
+    action.pause(2000);
+    action.click(anchor);
+    action.perform();
+    
+    action.perform();
+    driver.findElement(By.id("M1")).clear();
+    driver.findElement(By.id("M1")).sendKeys("Bosley");
+    driver.findElement(By.cssSelector("input[type=\"button\"]")).click();
+    driver.findElement(By.linkText("Las Vegas Apts")).click();
+    driver.findElement(By.linkText("View Income Limits")).click();
+  }
+  
+    @Test
+  public void testRDMFPropertyLookup() throws Exception {
+    driver.get(baseUrl + "/RDMFHRentals/select_state.jsp");
+    //driver.findElement(By.id("img6")).click();
+     WebElement anchor = driver.findElement(By.id("img6"));
+    action.moveToElement(anchor);
+    action.pause(2000);
+    action.click(anchor);
+    action.perform();
+    driver.findElement(By.id("P1")).clear();
+    driver.findElement(By.id("P1")).sendKeys("Orac");
+    driver.findElement(By.cssSelector("input[type=\"button\"]")).click();
+    driver.findElement(By.linkText("Oracle Apartments")).click();
+    driver.findElement(By.linkText("View Income Limits")).click();
+  }
+  
+    @Test
+  public void testRDMFTownLookup() throws Exception {
+    driver.get(baseUrl + "/RDMFHRentals/select_state.jsp");
+    //driver.findElement(By.id("img8")).click();
+     WebElement anchor = driver.findElement(By.id("img8"));
+    action.moveToElement(anchor);
+    action.pause(2000);
+    action.click(anchor);
+    action.perform();
+    new Select(driver.findElement(By.id("stl"))).selectByVisibleText("Arizona");
+    driver.findElement(By.id("tn")).clear();
+    driver.findElement(By.id("tn")).sendKeys("Orac");
+    driver.findElement(By.cssSelector("input[type=\"button\"]")).click();
+    driver.findElement(By.linkText("Oracle Apartments")).click();
+    driver.findElement(By.linkText("View Income Limits")).click();
+  }
+
 
   @AfterClass(alwaysRun = true)
   public void tearDown() throws Exception {

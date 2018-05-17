@@ -2,7 +2,12 @@
 <suite name="RDMF Testing" verbose="1" >
   <test name="RDMF City Search Test" >
     <classes>
-	<class name="RDMFZipLookup"/>
+-	<class name="RDMFZipLookup"/>
+<!--	
+<class name="RDMFTownLookup"/>
+	<class name="RDMFPropertyLookup"/>
+	<class name="RDMFMgmtLookup"/>
+-->
     </classes>
  </test>
 </suite>
