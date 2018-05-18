@@ -76,7 +76,28 @@ public class RDMFZipLookup {
     driver.findElement(By.linkText("View Income Limits")).click();
     pause();
   }
-  
+ 
+   @Test
+  public void testBadAssertion() throws Exception {
+    driver.get(baseUrl + "/RDMFHRentals/select_state.jsp");
+    //driver.findElement(By.id("img8")).click();
+     WebElement anchor = driver.findElement(By.id("img8"));
+    action.moveToElement(anchor);
+    action.pause(2000);
+    action.click(anchor);
+    action.perform();
+    new Select(driver.findElement(By.id("stl"))).selectByVisibleText("Arizona");
+    driver.findElement(By.id("tn")).clear();
+    driver.findElement(By.id("tn")).sendKeys("O");
+    pause();
+    driver.findElement(By.cssSelector("input[type=\"button\"]")).click();
+    pause();
+    driver.findElement(By.linkText("Oracle Apartments")).click();
+    pause();
+    driver.findElement(By.linkText("View Income Limits")).click();
+    pause();
+  }
+ 
     @Test
   public void testRDMFPropertyLookup() throws Exception {
     driver.get(baseUrl + "/RDMFHRentals/select_state.jsp");
@@ -117,8 +138,7 @@ public class RDMFZipLookup {
     driver.findElement(By.linkText("View Income Limits")).click();
     pause();
   }
-
-
+		     
   @AfterClass(alwaysRun = true)
   public void tearDown() throws Exception {
     driver.quit();
